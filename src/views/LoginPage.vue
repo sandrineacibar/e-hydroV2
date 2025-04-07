@@ -242,23 +242,25 @@ body {
 .slide-controls label.signup {
   color: #000;
 }
-.slide-controls .slider-tab {
+.slider-tab {
   position: absolute;
   height: 100%;
-  width: 55%;
+  width: 50%;
   left: 0;
   z-index: 0;
   border-radius: 20px;
   background: -webkit-linear-gradient(left, #0044cc, #00c6ff);
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-input[type='radio'] {
+
+.slide-controls input[type='radio'] {
   display: none;
 }
 
-#signup:checked ~ .slider-tab {
+.slider-tab.right {
   left: 50%;
 }
+
 #signup:checked ~ label.signup {
   color: #fff;
   cursor: default;
@@ -467,8 +469,8 @@ input[type='password'] {
   }
 
   .slide-controls .slide {
-    height: 80%;
-    width: 80%;
+    font-size: 17px;
+    line-height: 35px;
   }
 
   .logo img {
