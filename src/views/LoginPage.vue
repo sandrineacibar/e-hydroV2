@@ -478,5 +478,9 @@ input[type='password'] {
   .form-options {
     font-size: 10px;
   }
+
+  .form-inner form .field input {
+    font-size: 15px;
+  }
 }
 </style>
