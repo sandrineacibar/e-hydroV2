@@ -242,10 +242,10 @@ body {
 .slide-controls label.signup {
   color: #000;
 }
-.slide-controls .slider-tab {
+.slider-tab {
   position: absolute;
   height: 100%;
-  width: 55%;
+  width: 50%;
   left: 0;
   z-index: 0;
   border-radius: 20px;
@@ -467,8 +467,8 @@ input[type='password'] {
   }
 
   .slide-controls .slide {
-    height: 80%;
-    width: 80%;
+    font-size: 17px;
+    line-height: 35px;
   }
 
   .logo img {
