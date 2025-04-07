@@ -1,5 +1,4 @@
 <template>
-  <!-- 🔄 LOADING SPINNER -->
   <div v-if="loading" class="loading-overlay">
     <div class="spinner"></div>
   </div>
@@ -41,7 +40,11 @@
             </div>
             <div class="field">
               <input :type="passwordType" v-model="password" placeholder="Password" required />
-              <span class="eye-icon" @click="togglePasswordVisibility"></span>
+              <span
+                class="eye-icon"
+                :class="{ show: passwordType === 'password' }"
+                @click="togglePasswordVisibility"
+              ></span>
             </div>
 
             <div class="form-options">
@@ -59,14 +62,7 @@
               <input type="submit" value="Login" />
             </div>
             <div class="signup-link">
-              Don't have an account? <a href="#" @click.prevent="switchToSignup">Signup now</a>
-            </div>
-
-            <div class="or-divider">-OR-</div>
-            <div class="social-icons">
-              <img :src="fbIcon" alt="Facebook" />
-              <img :src="xIcon" alt="X" />
-              <img :src="googleIcon" alt="Google" />
+              Don't have an account? <a href="#" @click.prevent="switchToSignup">Signup</a>
             </div>
           </form>
 
@@ -76,7 +72,11 @@
             </div>
             <div class="field">
               <input :type="passwordType" v-model="password" placeholder="Password" required />
-              <span class="eye-icon" @click="togglePasswordVisibility"></span>
+              <span
+                class="eye-icon"
+                :class="{ show: passwordType === 'password' }"
+                @click="togglePasswordVisibility"
+              ></span>
             </div>
             <div class="field">
               <input
@@ -85,7 +85,11 @@
                 placeholder="Confirm password"
                 required
               />
-              <span class="eye-icon" @click="toggleConfirmPasswordVisibility"></span>
+              <span
+                class="eye-icon"
+                :class="{ show: confirmPasswordType === 'password' }"
+                @click="toggleConfirmPasswordVisibility"
+              ></span>
             </div>
 
             <div class="field btn">
@@ -94,13 +98,6 @@
             </div>
             <div class="login-link">
               Already have an account? <a href="#" @click.prevent="switchToLogin">Login</a>
-            </div>
-
-            <div class="or-divider">-OR-</div>
-            <div class="social-icons">
-              <img :src="fbIcon" alt="Facebook" />
-              <img :src="xIcon" alt="X" />
-              <img :src="googleIcon" alt="Google" />
             </div>
           </form>
         </div>
@@ -113,9 +110,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logonImage from '@/assets/img/logon.png'
-import fbIcon from '@/assets/img/fb.png'
-import xIcon from '@/assets/img/x.png'
-import googleIcon from '@/assets/img/google.png'
 
 export default {
   setup() {
@@ -169,9 +163,6 @@ export default {
       handleLogin,
       handleSignup,
       logonImage,
-      fbIcon,
-      xIcon,
-      googleIcon,
       loading,
       password,
       confirmPassword,
@@ -257,7 +248,7 @@ body {
   width: 55%;
   left: 0;
   z-index: 0;
-  border-radius: 30px;
+  border-radius: 20px;
   background: -webkit-linear-gradient(left, #0044cc, #00c6ff);
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -396,27 +387,6 @@ form .btn input[type='submit'] {
   font-size: 14px;
   color: #555;
 }
-.or-divider {
-  text-align: center;
-  margin: 15px 0;
-  font-size: 14px;
-  color: #777;
-}
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
-}
-.social-icons img {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-.social-icons img:hover {
-  transform: scale(1.1);
-}
 
 .eye-icon {
   position: absolute;
@@ -493,11 +463,20 @@ input[type='password'] {
 
 @media (max-width: 480px) {
   .wrapper {
-    padding: 10px;
+    padding: 30px;
+  }
+
+  .slide-controls .slide {
+    height: 80%;
+    width: 80%;
   }
 
   .logo img {
-    width: 50%;
+    width: 70%;
+  }
+
+  .form-options {
+    font-size: 10px;
   }
 }
 </style>
