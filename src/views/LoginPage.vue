@@ -36,7 +36,7 @@
         <div class="form-inner" :class="{ move: currentForm === 'signup' }">
           <form @submit.prevent="handleLogin" class="login">
             <div class="field">
-              <input type="text" placeholder="Email Address" required />
+              <input type="text" v-model="email" placeholder="Email Address" required />
             </div>
             <div class="field">
               <input :type="passwordType" v-model="password" placeholder="Password" required />
@@ -68,7 +68,7 @@
 
           <form @submit.prevent="handleSignup" class="signup">
             <div class="field">
-              <input type="text" placeholder="Email Address" required />
+              <input type="text" v-model="email" placeholder="Email Address" required />
             </div>
             <div class="field">
               <input :type="passwordType" v-model="password" placeholder="Password" required />
@@ -110,12 +110,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logonImage from '@/assets/img/logon.png'
+import { supabase } from '@/supabase'
 
 export default {
   setup() {
     const loading = ref(false)
     const router = useRouter()
     const currentForm = ref<'login' | 'signup'>('login')
+    const email = ref('')
     const password = ref('')
     const confirmPassword = ref('')
     const passwordType = ref('password')
@@ -132,20 +134,52 @@ export default {
       password.value = ''
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
       loading.value = true
-      setTimeout(() => {
-        loading.value = false
-        router.push('/home')
-      }, 2000)
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.value,
+        password: password.value,
+      })
+
+      loading.value = false
+
+      if (error) {
+        alert(error.message)
+        return
+      }
+
+      const user = data.user
+      console.log('Logged in as:', user)
+
+      router.push('/home')
     }
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
+      if (password.value !== confirmPassword.value) {
+        alert("Passwords don't match!")
+        return
+      }
+
       loading.value = true
-      setTimeout(() => {
-        loading.value = false
-        router.push('/home')
-      }, 2000)
+
+      const { data, error } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value,
+      })
+
+      loading.value = false
+
+      if (error) {
+        alert(error.message)
+      } else {
+        const user = data.user
+        alert(
+          'A confirmation email has been sent to your email address. Please check your inbox and confirm your email.',
+        )
+
+        switchToLogin()
+      }
     }
 
     const togglePasswordVisibility = () => {
@@ -164,6 +198,7 @@ export default {
       handleSignup,
       logonImage,
       loading,
+      email,
       password,
       confirmPassword,
       passwordType,
