@@ -1,4 +1,13 @@
 <template>
+  <head>
+    <!--Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
   <header :class="{ 'scrolled-nav': scrollPosition }">
     <nav>
       <div class="branding">
@@ -7,55 +16,69 @@
       </div>
       <ul v-show="!mobile" class="navigation">
         <li><router-link class="link" :to="{ name: 'home' }">Home</router-link></li>
-        <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
-        <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
-        <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
-        <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
+        <li><router-link class="link" :to="{ name: '' }">Station</router-link></li>
+        <li><router-link class="link" :to="{ name: '' }">My Order</router-link></li>
+        <li>
+          <router-link class="link second-last" :to="{ name: '' }"
+            ><v-icon>mdi-bell</v-icon></router-link
+          >
+        </li>
+        <li>
+          <router-link class="link last" :to="{ name: '' }"
+            ><v-icon>mdi-account-circle</v-icon></router-link
+          >
+        </li>
       </ul>
-      <div class="icon">
-        <i
-          @click="toggleMobileNav"
-          v-show="mobile"
-          class="fa fa-bars"
-          :class="{ 'icon-active': mobileNav }"
-        >
-        </i>
-      </div>
+      <v-icon
+        class="icon-style"
+        @click="toggleMobileNav"
+        v-show="mobile"
+        :class="{ 'icon-active': mobileNav }"
+        >mdi-menu</v-icon
+      >
+
       <transition name="mobile-nav">
-        <ul v-show="!mobile" class="navigation">
-          <li><router-link class="link" :to="{ name: 'home' }">Home</router-link></li>
-          <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
-          <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
-          <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
-          <li><router-link class="link" :to="{ name: '' }">Home</router-link></li>
+        <ul v-show="mobile && mobileNav" class="dropdown-nav">
+          <li>
+            <router-link class="link" :to="{ name: 'home' }"
+              ><v-icon>mdi-home</v-icon>Home</router-link
+            >
+          </li>
+          <li>
+            <router-link class="link" :to="{ name: '' }"
+              ><v-icon>mdi-water</v-icon>Station</router-link
+            >
+          </li>
+          <li>
+            <router-link class="link" :to="{ name: '' }"
+              ><v-icon>mdi-cart</v-icon>My Order</router-link
+            >
+          </li>
+          <li>
+            <router-link class="link" :to="{ name: '' }"
+              ><v-icon>mdi-bell</v-icon> Notification</router-link
+            >
+          </li>
+          <li>
+            <router-link class="link" :to="{ name: '' }"
+              ><v-icon>mdi-account</v-icon> Profile</router-link
+            >
+          </li>
         </ul>
       </transition>
     </nav>
   </header>
 </template>
 
-<script>
-/*export default {
-  //name: "navigation",
-  data() {
-    return {
-      scrollPosition: null,
-      mobile: true,
-      mobileNav: null,
-      windowWidth: null,
-    };
-  },
-}*/
-</script>
-
-<style lang="scss" scoped>
+<!--<style lang="scss" scoped>-->
+<style scoped>
 header {
-  background-color: rgba(0, 0, 0, 0.8);
+  /*background-color: rgba(0, 0, 0, 0.8);*/
   z-index: 99;
   width: 100%;
   position: fixed;
   transition: 0.5s ease all;
-  color: white;
+  color: #04448d;
 
   nav {
     display: flex;
@@ -70,39 +93,62 @@ header {
 
     ul,
     .link {
-      font-weight: 500;
-      color: white;
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      color: #04448d;
       list-style: none;
       text-decoration: none;
     }
 
     li {
-      text-transform: uppercase;
+      /*text-transform: uppercase;*/
       padding: 16px;
-      margin-left: 16px;
+      margin-left: 24px;
+
+      .last,
+      second-last {
+        margin-left: -2.7rem !important;
+      }
+      .last {
+        font-size: 25px;
+        border-style: none;
+      }
+      .second-last {
+        font-size: 22px;
+        border-style: none;
+      }
     }
 
     .link {
-      font-size: 14px;
+      font-size: 18px;
       transition: 0.5s ease all;
-      padding-bottom: 4px;
+      /*padding-bottom: 4px;*/
       border-bottom: 1px solid transparent;
       &:hover {
-        color: salmon;
-        border-color: salmon;
+        color: #02adef;
+        border-color: #02adef;
       }
     }
 
     .branding {
       display: flex;
       align-items: center;
+      /*margin-left: -2rem !important;*/
 
-      img {
-        width: 50px;
+      .first-word,
+      .second-word {
+        font-weight: 500;
+        font-size: 53px;
         transition: 0.5s ease all;
+        font-family: 'Antonio', sans-serif;
+      }
+      .first-word {
+        color: #02adef;
+      }
+      .second-word {
+        color: #04448d;
       }
     }
-
     .navigation {
       display: flex;
       align-items: center;
@@ -110,15 +156,17 @@ header {
       justify-content: flex-end;
     }
 
-    .icon {
+    .icon-style {
+      font-size: 35px;
       display: flex;
       align-items: center;
       position: absolute;
       top: 0;
       right: 24px;
-      height: 100% i {
+      height: 100%;
+
+      v-icon {
         cursor: pointer;
-        font-size: 24px;
         transition: 0.8s ease all;
       }
     }
@@ -134,8 +182,54 @@ header {
       width: 100%;
       max-width: 250px;
       height: 100%;
-      background-color: #fff;
+      background-image: url('@/assets/img/bg-addOn.png');
+      background-size: absolute;
+      backdrop-filter: blur(10px);
+      top: 0;
+      left: 0;
+
+      li {
+        margin-left: 0;
+        .link {
+          color: #000;
+        }
+      }
     }
   }
 }
 </style>
+
+<script>
+export default {
+  name: 'NavigationBar',
+  data() {
+    return {
+      scrollPosition: null,
+      mobile: null,
+      mobileNav: null,
+      windowWidth: null,
+    }
+  },
+
+  created() {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
+  },
+  methods: {
+    toggleMobileNav() {
+      this.mobileNav = !this.mobileNav;
+    },
+
+    checkScreen() {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth <= 750) {
+        this.mobile = true
+        return
+      }
+      this.mobile = false
+      this.mobileNav = false
+      return
+    },
+  },
+}
+</script>
