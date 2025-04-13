@@ -245,6 +245,11 @@ export default {
 
 /*-------Station Cards---------*/
 .station-card {
-  background-color: rgba(192, 192, 192, 0.473) !important;
+  background-color: #bee1ed7e !important;
+}
+.text-h5{
+  font-family: 'familjen-grotesk', sans-serif;
+  font-weight: 700 !important;
+  color: #04448d;
 }
 </style>
