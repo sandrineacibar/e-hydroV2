@@ -16,7 +16,7 @@
       </div>
       <ul v-show="!mobile" class="navigation">
         <li><router-link class="link" :to="{ name: 'home' }">Home</router-link></li>
-        <li><router-link class="link" :to="{ name: '' }">Station</router-link></li>
+        <li><router-link class="link" :to="{ name: 'station' }">Station</router-link></li>
         <li><router-link class="link" :to="{ name: '' }">My Order</router-link></li>
         <li>
           <router-link class="link second-last" :to="{ name: '' }"
@@ -39,6 +39,12 @@
 
       <transition name="mobile-nav">
         <ul v-show="mobile && mobileNav" class="dropdown-nav">
+          <li>
+            <div class="branding">
+              <span class="first-word">E</span>
+              <span class="second-word">-HYDRO</span>
+            </div>
+          </li>
           <li>
             <router-link class="link" :to="{ name: 'home' }"
               ><v-icon>mdi-home</v-icon>Home</router-link
@@ -69,6 +75,41 @@
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  name: 'NavigationBar',
+  data() {
+    return {
+      scrollPosition: null,
+      mobile: null,
+      mobileNav: null,
+      windowWidth: window.innerWidth,
+    }
+  },
+
+  created() {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
+  },
+  methods: {
+    toggleMobileNav() {
+      this.mobileNav = !this.mobileNav
+    },
+
+    checkScreen() {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth <= 750) {
+        this.mobile = true
+        return
+      }
+      this.mobile = false
+      this.mobileNav = false
+      return
+    },
+  },
+}
+</script>
 
 <!--<style lang="scss" scoped>-->
 <style scoped>
@@ -157,21 +198,21 @@ header {
     }
 
     .icon-style {
-      font-size: 35px;
+      font-size: 50px;
       display: flex;
       align-items: center;
       position: absolute;
       top: 0;
       right: 24px;
       height: 100%;
-
-      v-icon {
-        cursor: pointer;
-        transition: 0.8s ease all;
-      }
+      margin-top: 4px;
+      cursor: pointer;
+      transition:
+        transform 0.5s ease,
+        opacity 0.4s ease;
     }
 
-    .icon-active {
+    .icon-style.icon-active {
       transform: rotate(180deg);
     }
 
@@ -179,19 +220,18 @@ header {
       display: flex;
       flex-direction: column;
       position: fixed;
-      width: 100%;
+      width: 90%;
       max-width: 250px;
       height: 100%;
-      background-image: url('@/assets/img/bg-addOn.png');
-      background-size: absolute;
       backdrop-filter: blur(10px);
-      top: 0;
       left: 0;
-
+      top: 0;
+      margin: auto;
+      padding: 12px 0;
       li {
-        margin-left: 0;
         .link {
-          color: #000;
+          color: #04448d;
+          font-size: 18px;
         }
       }
     }
@@ -199,37 +239,3 @@ header {
 }
 </style>
 
-<script>
-export default {
-  name: 'NavigationBar',
-  data() {
-    return {
-      scrollPosition: null,
-      mobile: null,
-      mobileNav: null,
-      windowWidth: null,
-    }
-  },
-
-  created() {
-    window.addEventListener('resize', this.checkScreen)
-    this.checkScreen()
-  },
-  methods: {
-    toggleMobileNav() {
-      this.mobileNav = !this.mobileNav;
-    },
-
-    checkScreen() {
-      this.windowWidth = window.innerWidth
-      if (this.windowWidth <= 750) {
-        this.mobile = true
-        return
-      }
-      this.mobile = false
-      this.mobileNav = false
-      return
-    },
-  },
-}
-</script>
