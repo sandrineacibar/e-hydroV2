@@ -1,14 +1,16 @@
 <template>
-  <v-container fluid class="bg-image">
+<NavigationBar>
+  <template #content>
+    <v-container fluid class="bg-image">
     <!--first row-->
     <v-row>
       <v-col col="12" md="6">
         <div class="title-phrase">
           <h4 class="first-phrase">Stay hydrated<v-icon class="icon-style">mdi-water</v-icon></h4>
-          <h4 class="second-phrase">Place your order here</h4>
+         <!---->
         </div>
       </v-col>
-      <!--Search Barr Area-->
+      <!--Search Bar Area-->
       <v-col col="12" md="6" class="search-bar">
         <v-form class="search-form" role="search">
           <v-row no-gutters>
@@ -35,9 +37,10 @@
     <!--second row-->
     <v-row>
       <v-col class="d-flex justify-center" cols="12">
-        <v-card class="mx-auto station-card" max-width="85%">
+        <v-card class="mx-auto station-card" max-width="85%" elevation="24">
           <v-card-title class="text-center pt-10">
-            <h2 class="text-h5">Featured Stations</h2>
+            <h2 class="text-h5">Available Water Refilling Stations</h2>
+            <h4 class="second-phrase">Place your order here</h4>
             <!--Station Cards-->
             <v-container>
               <v-slide-group
@@ -78,10 +81,15 @@
     </v-row>
     <!--end second row-->
   </v-container>
+  </template>
+</NavigationBar>
+
 </template>
 
-<script>
-export default {
+<script setup>
+import NavigationBar from '@/components/layout/NavigationBar.vue';
+
+/*export default {
   data() {
     return {
       model: 0,
@@ -118,6 +126,7 @@ export default {
     },
   },
 
+
   methods: {
     scrollNext() {
       this.$refs.slideGroup.next()
@@ -126,7 +135,7 @@ export default {
       this.$refs.slideGroup.prev()
     },
   },
-}
+}*/
 </script>
 
 <style scoped>

@@ -65,6 +65,7 @@
       </transition>
     </nav>
   </header>
+  <slot name="content"></slot>
 </template>
 
 <script>

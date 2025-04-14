@@ -1,5 +1,7 @@
 <template>
-  <v-container fluid class="bg-image">
+  <NavigationBar>
+    <template #content>
+      <v-container fluid class="bg-image">
     <v-row>
       <v-col cols="12" md="5" class="pt-16">
         <h1></h1>
@@ -22,9 +24,14 @@
       </v-col>
     </v-row>
   </v-container>
+    </template>
+  </NavigationBar>
+
 </template>
 
 <script setup>
+import NavigationBar from '@/components/layout/NavigationBar.vue'
+
 import firstIcon from '@/assets/img/first-icon.png'
 import secondIcon from '@/assets/img/second-icon.png'
 import thirdIcon from '@/assets/img/third-icon.png'
