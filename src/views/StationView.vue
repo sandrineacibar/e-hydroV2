@@ -42,8 +42,8 @@
         <v-row>
           <v-col class="d-flex justify-center" cols="12">
             <!--Station Card-->
-            <v-card class="mx-auto station-card" max-width="85%" elevation="24">
-              <v-card-title class="text-center pt-10">
+            <v-container class="mx-auto station-container" max-width="85%" elevation="24">
+              <v-card-title class="text-center ">
                 <h2 class="text-h5">Available Water Refilling Stations</h2>
                 <h4 class="second-phrase">
                   Place your order here<v-icon class="cart-run">mdi-cart-variant</v-icon>
@@ -56,16 +56,35 @@
                   >
                     <router-link :to="img.route" class="no-underline">
                       <v-card
-                        :class="['ma-2', selectedClass]"
+                        :class="['ma-3', selectedClass]"
                         height="480"
                         width="300"
                         @click="toggle"
                         class="slide-group-style"
                       >
-                        <v-card elevation="0" class="image-card">
-                          <v-img :src="img.src" class="mb-1 images"></v-img>
-                          <h4 class="pb-1 text-white order-now-text">Order Now!</h4>
+                        <v-card :disabled="loading"
+                          :loading="loading"
+                          class="mx-auto image-card"
+                          max-width="374" >
+                          <template #loader="{ isActive }">
+                            <v-progress-linear
+                              :active="isActive"
+                              color="deep-purple"
+                              height="4"
+                              indeterminate
+                            ></v-progress-linear>
+                          </template>
+                          <v-img
+                            :src="img.src"
+                            cover
+                            class="mb-2 images"
+                          ></v-img>
+                          <h4 class="text-white order-now-text mb-2">Order Now!</h4>
                         </v-card>
+                       <!--<v-card elevation="0" class="image-card">
+                          <v-img :src="img.src" class="mb-1 images" ></v-img>
+                          <h4 class="pb-1 text-white order-now-text">Order Now!</h4>
+                        </v-card>-->
                         <v-card-title class="text-wrap text-start text-title">
                           {{ img.title }}
                         </v-card-title>
@@ -84,7 +103,7 @@
                 </v-slide-group>
               </v-card-title>
               <v-card-subtitle class="pb-0"> </v-card-subtitle>
-            </v-card>
+            </v-container>
             <!--End of station card-->
           </v-col>
         </v-row>
@@ -102,6 +121,10 @@ import AquaSis from '@/assets/img/Aquasis-shop.jpg'
 import Aquabon from '@/assets/img/Aquabon-shop.png'
 import ColdPoint from '@/assets/img/coldpoint-shop.jpg'
 
+/*import { useDisplay } from 'vuetify'
+
+const { mobile } = useDisplay()*/
+
 // Model for v-model binding
 const model = ref(0)
 
@@ -112,7 +135,7 @@ const images = ref([
     title: 'Aquasis Water Station',
     description: 'Brgy JP Rizal, Butuan City',
     price: '₱25.00 per gallon',
-    route: '/',
+    route: '/AquasisDashboard',
   },
   {
     src: Aquabon,
@@ -284,7 +307,7 @@ const images = ref([
   text-decoration: none;
   color: inherit;
 }
-.station-card {
+.station-container {
   background-color: #bee1ed7e;
 }
 .text-h5 {
