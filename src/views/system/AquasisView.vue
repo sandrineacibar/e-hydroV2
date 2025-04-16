@@ -18,13 +18,13 @@
             <!--Left Column-->
             <v-row>
               <v-col col="12" md="6">
-                <v-card>
-                  <v-row align="center" no-gutters>
-                    <v-col col="12" md="6">
-                      <img src="@/assets/img/Aquasis-shop.jpg" height="250" alt="test image" />
+                <v-container>
+                  <v-row no-gutters>
+                    <v-col col="12" md="5">
+                      <img src="@/assets/img/Aquasis-shop.jpg" height="230" alt="test image" />
                     </v-col>
-                    <v-col col="12" md="6">
-                      <img src="@/assets/img/aquasis-img.jpg" height="250" alt="test image" />
+                    <v-col col="12" md="7">
+                      <img src="@/assets/img/aquasis-img.jpg" height="230" alt="test image" />
                     </v-col>
                   </v-row>
                   <!--Description-->
@@ -41,12 +41,12 @@
                     </v-col>
                   </v-row>
                   <div d-flex class="mb-10">
-                    <v-btn prepend-icon="mdi-facebook-messenger"> Messenger</v-btn>
-                    <v-btn prepend-icon="mdi-phone">Contact Number</v-btn>
+                    <v-btn rounded="0" prepend-icon="mdi-facebook-messenger"> Messenger</v-btn>
+                    <v-btn rounded="0" prepend-icon="mdi-phone">Contact Number</v-btn>
                   </div>
                   <v-divider></v-divider>
                   <!---RATING AND COMMENTS WILL REFLECT THIS AREA-->
-                </v-card>
+                </v-container>
               </v-col>
               <!--End Left Column-->
               <!--Right Column-->
@@ -88,25 +88,44 @@
                     <v-col col="12" md="4">
                       <v-container d-flex align-center ga-2>
                         <v-row>
-                          <v-btn @click="toggleDecrease"><v-icon>mdi-minus</v-icon></v-btn>
+                          <v-btn rounded="0" @click="toggleDecrease"><v-icon>mdi-minus</v-icon></v-btn>
                           <p class="text-h6 mb-0 text-center">{{ numberOfGallon }}</p>
-                          <v-btn @click="toggleIncrease"><v-icon>mdi-plus</v-icon></v-btn>
+                          <v-btn rounded="0" @click="toggleIncrease"><v-icon>mdi-plus</v-icon></v-btn>
                         </v-row>
                       </v-container>
                     </v-col>
                   </v-row>
                   <v-divider></v-divider>
                   <div class="text-center">
-                  <v-btn class="add-address-btn"><v-icon>mdi-plus-circle-outline</v-icon>Place a new order for another location</v-btn>
+                  <v-btn rounded="0" class="add-address-btn"><v-icon>mdi-plus-circle-outline</v-icon>Place a new order for another location</v-btn>
                   </div>
                   <v-row>
                     <v-col col="12" md="6">
-                      <v-btn class="cancel-btn">Cancel</v-btn>
+                      <v-btn rounded="0" class="cancel-btn">Cancel</v-btn>
                     </v-col>
                     <v-col col="12" md="6">
                       <h3>Total: ₱{{  }}</h3>
-                      <v-btn class="order-btn">Order Now</v-btn>
+                      <v-btn rounded="0" class="order-btn">Order Now</v-btn>
                     </v-col>
+                  </v-row>
+                </v-container>
+                <v-container>
+                  <v-row class="justify-center">
+                  <v-btn rounded="0" value="recent">
+                    <v-icon>mdi-calendar</v-icon>
+                    <p>Set a delivery</p>
+                    <p>schedule</p>
+                  </v-btn>
+
+                  <v-btn rounded="0" value="favorites">
+                    <span>Order in bulk</span>
+                    <span>Save ₱10.00</span>
+                  </v-btn>
+
+                  <v-btn rounded="0" value="nearby">
+                    <span>Order now</span>
+                    <span>₱20 | each</span>
+                  </v-btn>
                   </v-row>
                 </v-container>
               </v-col>
