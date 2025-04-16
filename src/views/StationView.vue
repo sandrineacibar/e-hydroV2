@@ -67,7 +67,7 @@
                           class="mx-auto image-card"
                           max-width="374" >
                           <template #loader="{ isActive }">
-                            <v-progress-linear
+                            <!----><v-progress-linear
                               :active="isActive"
                               color="deep-purple"
                               height="4"
@@ -135,7 +135,7 @@ const images = ref([
     title: 'Aquasis Water Station',
     description: 'Brgy JP Rizal, Butuan City',
     price: '₱25.00 per gallon',
-    route: '/AquasisDashboard',
+    route: '/aquasis',
   },
   {
     src: Aquabon,
@@ -159,6 +159,7 @@ const images = ref([
     route: '/',
   },
 ])
+
 </script>
 
 <style scoped>

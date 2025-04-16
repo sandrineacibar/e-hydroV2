@@ -1,10 +1,7 @@
-<script setup lang="ts">
-import NavigationBar from './NavigationBar.vue';
+<script setup>
 </script>
 
 <template>
-  <NavigationBar>
-    <template #content>
       <v-container fluid class="bg-image">
         <!--first row-->
         <v-row>
@@ -41,26 +38,8 @@ import NavigationBar from './NavigationBar.vue';
           </v-col>
         </v-row>
         <!--end first row-->
-        <!--Card Station Area-->
-        <v-row>
-          <v-col>
-            <v-container class="mx-auto station-container" elevation="24">
-              <v-col col="12" md="6">
-                <slot name="slot-h1"><h1>vnx  </h1></slot>
-                <slot name="stationstyle">
-
-                </slot>
-              </v-col>
-              <v-col col="12" md="6">
-
-              </v-col>
-            </v-container>
-          </v-col>
-        </v-row>
-        <!--End Card Station Area-->
+        <slot name="dashboardcontent"></slot>
       </v-container>
-    </template>
-  </NavigationBar>
 </template>
 
 <style scoped>
