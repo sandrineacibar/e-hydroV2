@@ -36,7 +36,7 @@
         <div class="form-inner" :class="{ move: currentForm === 'signup' }">
           <form @submit.prevent="handleLogin" class="login">
             <div class="field">
-              <input type="text" placeholder="Email Address" required />
+              <input type="text" v-model="email" placeholder="Email Address" required />
             </div>
             <div class="field">
               <input :type="passwordType" v-model="password" placeholder="Password" required />
@@ -68,7 +68,7 @@
 
           <form @submit.prevent="handleSignup" class="signup">
             <div class="field">
-              <input type="text" placeholder="Email Address" required />
+              <input type="text" v-model="email" placeholder="Email Address" required />
             </div>
             <div class="field">
               <input :type="passwordType" v-model="password" placeholder="Password" required />
@@ -110,12 +110,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logonImage from '@/assets/img/logon.png'
+import { supabase } from '@/supabase'
 
 export default {
   setup() {
     const loading = ref(false)
     const router = useRouter()
     const currentForm = ref<'login' | 'signup'>('login')
+    const email = ref('')
     const password = ref('')
     const confirmPassword = ref('')
     const passwordType = ref('password')
@@ -132,20 +134,52 @@ export default {
       password.value = ''
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
       loading.value = true
-      setTimeout(() => {
-        loading.value = false
-        router.push('/home')
-      }, 2000)
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.value,
+        password: password.value,
+      })
+
+      loading.value = false
+
+      if (error) {
+        alert(error.message)
+        return
+      }
+
+      const user = data.user
+      console.log('Logged in as:', user)
+
+      router.push('/home')
     }
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
+      if (password.value !== confirmPassword.value) {
+        alert("Passwords don't match!")
+        return
+      }
+
       loading.value = true
-      setTimeout(() => {
-        loading.value = false
+
+      const { data, error } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value,
+      })
+
+      loading.value = false
+
+      if (error) {
+        alert(error.message)
+      } else {
+        const user = data.user
+        alert(
+          'A confirmation email has been sent to your email address. Please check your inbox and confirm your email.',
+        )
+
         router.push('/home')
-      }, 2000)
+      }
     }
 
     const togglePasswordVisibility = () => {
@@ -164,6 +198,7 @@ export default {
       handleSignup,
       logonImage,
       loading,
+      email,
       password,
       confirmPassword,
       passwordType,
@@ -175,27 +210,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
 html,
 body {
   height: 100%;
-  width: 100%;
-  background: url('@/assets/img/body.png') no-repeat center;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .page-container {
-  margin-right: -200px;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: url('../assets/img/body.png') no-repeat center center;
+  background-size: cover;
 }
 
 .slider-tab {
